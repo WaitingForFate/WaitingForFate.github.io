@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--  HTTPS 承载的页面上不允许出现 http 请求，一旦出现就是提示或报错。我们的页面是 https 的，而这个页面中包含了大量的 http 资源（图片、iframe等），页面一旦发现存在上述响应头，会在加载 http 资源时自动替换成 https 请求。 -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		<!-- 都是些css文件，不用管它 -->
+		<title>烟花盛开的节日</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="style.css">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+
+	</head>
+	<!-- 
+		img
+	网站小logo  
+
+
+
+-->
+	<body>
+		
+
+		<div id="site-content">
+			<header class="site-header">
+				<div class="container">
+					<a href="index.html" id="branding">
+						<img id="网站小logo" src="img/网站小logo.png" alt="" class="logo">
+						<div class="logo-copy">
+							<h1 class="site-title">被时间忘却的花园</h1>
+							<small class="site-description">欢迎回到2017</small>
+						</div>
+					</a> <!-- #branding -->
+
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="index.html">视频预览首页</a></li>
+							
+							<li class="menu-item"><a href="about.html">About</a></li>
+	
+											</ul> <!-- .menu -->
+
+						<form action="#" class="search-form">
+							<input type="text" placeholder="Search...">
+							<button><i class="fa fa-search"></i></button>
+						</form>
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+				</div>
+			</header>
+			<main class="main-content">
+				<div id="按钮插入处" class="container" 
+				style="text-align: center;height: 1500px;
+				">
+					
+			
+					<!-- <embed style="width: 100%;height: 1000px;" 
+					src="寒蝉解/index.html" /> -->
+					
+					<!-- <iframe id="播放框架" style="width: 700px;
+					height: 1200px;
+					top: 200px;
+					position: relative;
+					transform: scale(1.4,1.4);"
+					frameborder="0"
+					scrolling="no"
+					src=""
+					></iframe> -->
+
+					<!--  iframe是个沙盒，可嵌入其他网页，这里嵌入的网页，其元素有宽度为700px的表格
+					只有iframe的width设置为700px及以上，才能完整显示这个表格，否则就需要托动了-->
+					<script>
+						//电脑端和手机端采用不同的缩放
+						//transform的缩放位移等，是几何性质的，相当于截图，然后图像变换
+						var url=window.location.href
+						var 需要播放的视频编码=url.split("?video=")[1]
+						var 父元素=document.getElementById("按钮插入处")
+						if ((window.navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
+						//    alert("建议使用电脑访问奥，手机端的优化暂未做好");
+								// a.style.transform='scale('+0.9+','+0.9+');'
+								html = '<iframe id="播放框架" style="width: 700px;height: 1200px;top: 200px;position: relative;transform: scale(0.9,0.9);"frameborder="0"scrolling="no"src=""></iframe>';
+						}else{
+							 
+								html = '<iframe id="播放框架" style="width: 700px;height: 1200px;top: 200px;position: relative;transform: scale(1.4,1.4);"frameborder="0"scrolling="no"src=""></iframe>';
+							            
+        				}
+    
+        				父元素.innerHTML += html;
+					  	
+				   </script>
+					<script>
+						var url=window.location.href
+						var 需要播放的视频编码=url.split("?video=")[1]
+						console.log("需要播放的视频:  "+decodeURI(需要播放的视频编码))
+						var a=document.getElementById("播放框架")
+						a.src="url重定向.html?video="+需要播放的视频编码
+					</script>
+
+				</div> <!-- .container -->
+			</main>
+			<footer class="site-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">列车发车表</h3>
+								<li>记忆的末班车1175号</li>
+								<li>始发站--今天</li>
+								<li>终点站--2017</li>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title"></h3>
+								<ul class="no-bullet">
+									<li> </li>
+									<li> </li>
+									<li> </li>
+									<li> </li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">旅客留言</h3>
+								<ul class="no-bullet">
+									<li>Invenore veritae</li>
+									
+									<li>Dolorem respequem</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title"> </h3>
+								<ul class="no-bullet">
+									<li> </li>
+									<li> </li>
+									<li> </li>
+									<li> </li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">Social Media</h3>
+								<ul class="no-bullet">
+									<li>Facebook</li>
+									<li>Twitter</li>
+									<li>Google+</li>
+									<li>Pinterest</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">Newsletter</h3>
+								<form action="#" class="subscribe-form">
+									<input type="text" placeholder="Email Address">
+								</form>
+							</div>
+						</div>
+					</div> <!-- .row -->
+
+					<div class="colophon">Copyright 2014 Company name, Designed by Themezy. All rights reserved</div>
+				</div> <!-- .container -->
+
+			</footer>
+		</div>
+		<!-- Default snippet for navigation -->
+		
+
+
+		<!-- <script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/app.js"></script> -->
+		
+	</body>
+
+</html>
+

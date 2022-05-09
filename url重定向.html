@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Movie Review | Review</title>
+
+	</head>
+
+	<body>
+
+     
+<!-- 引入URL库 -->
+<script type="text/javascript" src="URL库.js"></script>
+
+<script>
+        //打开一个支持正则表达式替换的网站，把url列表的换行符替换为空格
+        //这是url库的举例
+        // var 视频_mp4_URL库=[{
+        //     idName:"寒蝉解",
+        //     url_list:["https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/a9f6f3105285890806921804880/7dGKDSoalJ8A.mp4","https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/a9f7feb45285890806921806558/SP0rUBLzx3gA.mp4","https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/a9f912ce5285890806921808424/sLamYxkKdwoA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/aa06cd0a5285890806921810562/lBzkU6kTKPwA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/edc2e7395285890806922428679/wuATgnPe7poA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/edc380155285890806922429953/Sxg4dYLg7dUA.mp4",      "https://1251316161.vod2.myqcloud.com/3ac53050vodcd1251316161/36108b675285890806923224135/nplgQS6QV5kA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/6a4055385285890806927261768/chqDjd9iX4QA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/3611b0ac5285890806923226417/cEvqFpAOAIYA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/361246955285890806923227695/tzH0tsXXYPAA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/c77f5ca85285890806928956997/ym58JQtqI9AA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/c7806c665285890806928958759/UamfKQ9t2kcA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/c78e11595285890806928960393/fauYEoqRF5AA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/c78f36df5285890806928962694/rqbVxAAxOesA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/883345105285890806924493414/0BX85A3AwqAA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/08bc93535285890806929444704/KoW23XEMUkgA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/88345eb85285890806924495483/JahMjgNNhp8A.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/d718e6d55285890806925538850/LsP61tLh2G8A.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/14c0405f5285890806929993446/hwvRAggD4xsA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/14c0cd215285890806929994474/4PAUbBUify0A.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/d72729345285890806925541891/Vz7xfDMZIxUA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/408e4c2e5285890806930497150/xBAkfB1EC2MA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/408ee1555285890806930498372/UZN8FqQBbiIA.mp4",      "https://1251316161.vod2.myqcloud.com/007a649dvodcq1251316161/408f6ddb5285890806930499386/7bALhAa5WqcA.mp4"
+        // ]},
+        // ]
+        // var 视频_m3u8_URL库=[{
+        //     idName:"千与千寻",
+        //     url_list:["https://cdn6.shzbgyl.com:65/20210707/zw9O5wUq/index.m3u8"
+        // ]},
+        // ]
+
+
+        //现在根据url传入的参数找到对应的url列表（视频多了之后，url列表可通过导入js文件方式进行导入)
+        var url=window.location.href;var 播放序号=-1;
+        var 需要播放的视频=decodeURI( url.split("?video=")[1]  )//本地url+?video=xxx
+        
+        视频_mp4_URL库.forEach((视频,index) => {
+                if (视频.idName==需要播放的视频){
+                    console.log("in url中转站 匹配到 "+需要播放的视频+" 对应的url列表")
+                    console.log("in url中转站 url将中转到: mp4播放器")
+                    播放序号=index
+                    window.location.href="mp4播放器.html?play_index="+播放序号
+                    
+                }
+            })
+        if (播放序号==-1){console.log("in url中转站 MP4资源库中没有对应视频！")}
+
+       
+        视频_m3u8_URL库.forEach((视频,index) => {
+                if (视频.idName==需要播放的视频){
+                    console.log("in url中转站 匹配到 "+视频.name+" 对应的url列表")
+                    console.log("in url中转站 url将中转到: m3u8播放器")
+                    播放序号=index
+                    window.location.href="m3u8播放器.html?play_index="+播放序号
+                    
+                }
+            })
+    if (播放序号==-1){console.log("in url中转站 m3u8资源库中没有对应视频！")}
+
+    console.log("in url中转站 视频url资源库中没有找到文件！")
+    </script>
+
+
+
+
+    </body>

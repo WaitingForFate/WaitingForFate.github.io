@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		<!-- 都是些css文件，不用管它 -->
+		<title>烟花盛开的节日</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="style.css">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+
+	</head>
+	<!-- 
+		img
+	网站小logo  
+
+
+
+-->
+	<body>
+		
+
+		<div id="site-content">
+			<header class="site-header">
+				<div class="container">
+					<a href="index.html" id="branding">
+						<img id="网站小logo" src="img/网站小logo.png" alt="" class="logo">
+						<div class="logo-copy">
+							<h1 class="site-title">被时间忘却的花园</h1>
+							<small class="site-description">欢迎回到2017</small>
+						</div>
+					</a> <!-- #branding -->
+
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="index.html">视频预览首页</a></li>
+							
+							<li class="menu-item"><a href="about.html">About</a></li>
+	
+											</ul> <!-- .menu -->
+
+						<form action="#" class="search-form">
+							<input type="text" placeholder="Search...">
+							<button><i class="fa fa-search"></i></button>
+						</form>
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+				</div>
+			</header>
+			<main class="main-content">
+				<div class="container">
+					<div class="page">
+						<div class="breadcrumbs">
+							<a href="index.html">Home</a>
+							<span>Movie Review</span>
+						</div>
+
+						<div class="filters">
+							<select name="#" id="#" placeholder="Choose Category">
+								<option value="#">Action</option>
+								<option value="#">Drama</option>
+								<option value="#">Fantasy</option>
+								<option value="#">Horror</option>
+								<option value="#">Adventure</option>
+							</select>
+							<select name="#" id="#">
+								<option value="#">2012</option>
+								<option value="#">2013</option>
+								<option value="#">2014</option>
+							</select>
+						</div>
+						<div class="movie-list">
+							<div class="movie">
+								<figure class="movie-poster"><img src="img/视频预览/1.jpg" alt="#"></figure>
+								<div class="movie-title"><a id="寒蝉解" href="">寒蝉鸣泣之时 解</a></div>
+								<p>Sed ut perspiciatis unde omnis iste natus error voluptatem doloremque.</p>
+							</div>
+							<!-- <div class="movie"> -->
+								<!-- <figure class="movie-poster"><img src="img/视频预览/2.jpg" alt="#"></figure> -->
+								<!-- 这一长串是对"千与千寻"进行的url编码 -->
+								<!-- <div class="movie-title"><a id="千与千寻" href="">千与千寻的神隐(可能有错误)</a></div> -->
+								<!-- <p>Sed ut perspiciatis unde omnis iste natus error voluptatem doloremque.</p> -->
+							<!-- </div> -->
+							<div class="movie">
+								<figure class="movie-poster"><img src="img/视频预览/3.jpg" alt="#"></figure>
+								<!-- 这一长串是对"千与千寻"进行的url编码 -->
+								<div class="movie-title"><a id="寒蝉鸣泣之时" href="">寒蝉鸣泣之时</a></div>
+								<p>Sed ut perspiciatis unde omnis iste natus error voluptatem doloremque.</p>
+							</div>
+
+							<script>
+									var a=document.getElementById("寒蝉解")
+									a.href="播放框架.html?video="+encodeURI("寒蝉解"); //%E5%8D%83%E4%B8%8E%E5%8D%83%E5%AF%BB
+									// a=document.getElementById("千与千寻")
+									// a.href="播放框架.html?video="+encodeURI("千与千寻"); //%E5%8D%83%E4%B8%8E%E5%8D%83%E5%AF%BB
+									a=document.getElementById("寒蝉鸣泣之时")
+									a.href="播放框架.html?video="+encodeURI("寒蝉鸣泣之时"); 
+
+							</script>
+							
+						</div> <!-- .movie-list -->
+
+						<div class="pagination">
+							<a href="#" class="page-number prev"><i class="fa fa-angle-left"></i></a>
+							<span class="page-number current">1</span>
+							<!-- <a href="#" class="page-number">2</a>
+							<a href="#" class="page-number">3</a>
+							<a href="#" class="page-number">4</a>
+							<a href="#" class="page-number">5</a> -->
+							<a href="#" class="page-number next"><i class="fa fa-angle-right"></i></a>
+						</div>
+					</div>
+				</div> <!-- .container -->
+			</main>
+			<footer class="site-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">列车发车表</h3>
+								<li>记忆的末班车1175号</li>
+								<li>始发站--今天</li>
+								<li>终点站--2017</li>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title"></h3>
+								<ul class="no-bullet">
+									<li> </li>
+									<li> </li>
+									<li> </li>
+									<li> </li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">作者留言</h3>
+								<ul class="no-bullet">
+									<li>如果你想获取这个网站有更多注释的代码，可发信至mytmpaddr@163.com</li>
+									<li>...</li>
+									<li>如果你想为这个网站添加视频，可发视频src地址(若有blob加密，可直接发网页地址)和弹幕xml文件至上述邮箱。作者添加视频需要两步：1.录入url库2.建立弹幕文件夹</li>			
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title"> </h3>
+								<ul class="no-bullet">
+									<li> </li>
+									<li> </li>
+									<li> </li>
+									<li> </li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">作者留言</h3>
+								<ul class="no-bullet">
+									<li>本网站的建站运行采用的是价格最低廉的，最简单的方式，是不存在费用问题的。因此如果没有第三方因素，本站永不关站</li>
+									<li>...</li>
+									<li>代码没有做任何加密，欢迎copy。但作者主业并不在此，并非前端或后端专业人员，写这个时仅仅是接触网页这方面半个月的菜鸟，如有批评和指导，万分感谢</li>
+									
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="widget">
+								<h3 class="widget-title">Newsletter</h3>
+								<form action="#" class="subscribe-form">
+									<input type="text" placeholder="Email Address">
+								</form>
+							</div>
+						</div>
+					</div> <!-- .row -->
+
+					<div class="colophon"></div>
+				</div> <!-- .container -->
+
+			</footer>
+		</div>
+		<!-- Default snippet for navigation -->
+		
+
+
+		<!-- <script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/app.js"></script> -->
+		
+	</body>
+
+</html>

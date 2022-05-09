@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>失落的城市</title>
+ <!--  HTTPS 承载的页面上不允许出现 http 请求，一旦出现就是提示或报错。我们的页面是 https 的，而这个页面中包含了大量的 http 资源（图片、iframe等），页面一旦发现存在上述响应头，会在加载 http 资源时自动替换成 https 请求。 -->
+ <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<!-- 以下是m3u8播放器要引入的网络js文件 -->
+<link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+<script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
+<!-- videojs-contrib-hls 用于在电脑端播放 如果只需手机播放可以不引入 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js"></script>
+<style>
+    .video-js.vjs-tech {position: relative !important;}
+    .video-js.vjs-16-9{ /* 视频占满容器高度 */
+  height: 100%;
+  background-color: #161616;
+}
+</style>
+<!-- Over -->
+<style>
+    .mytable{
+        position: absolute;top:100px;left: 100px;
+        width: 700px;
+        /* margin: auto; */
+        /* border: "thin black solid"; */
+        padding: 0px; /* 表格边框的厚度*/
+        left: 0;
+        text-align:center; 
+        font-weight: 900;
+        
+        /*使得表格内的元素，比如文字，在单元格里居中*/
+    }
+  
+    .滚动条{
+        float: left;
+    }
+    .切换按钮{
+        width: 40px;
+        height: 40px;
+        font-size:larger;
+        font-weight: 700;
+        text-shadow: 5px;
+    }
+    td{
+        
+        padding: 0px;
+    }
+    #开始图片{
+        
+        opacity: 1;
+    }
+</style>
+</head>
+
+<body style="">
+
+<table id="按钮插入处" class="mytable"  border="1"  >
+    <tr>
+        <td>     </td>
+    </tr>
+    <!-- z-index调节元素的层级，使得video不被遮挡 -->
+    <tr> 
+        <td style="height: 450px;z-index: 1;">
+            <div id="Video_BOX"
+            style="position: relative;top:20px;
+            left: 0px;width: 700px;height: 450px;z-index:1;overflow: hidden ;" >
+
+            <!-- <video  class="video-js  vjs-default-skin vjs-big-play-centered" -->
+            <!-- style="width: 700px;"controls preload="auto" data-setup='{}'  id="myvideo"> -->
+                <!-- <source id="source" src="https://cdn6.shzbgyl.com:65/20210707/zw9O5wUq/index.m3u8" type="application/x-mpegURL"></source> -->
+                <!-- <source id="source" src="http://1252093142.vod2.myqcloud.com/4704461fvodcq1252093142/f865d8a05285890787810776469/playlist.f3.m3u8" type="application/x-mpegURL"></source> -->
+
+            </video>
+            <div  id="MY弹幕板" 
+             style=" position: absolute;
+             top:20px;height: 320px;
+             left: 0px;width: 700px;
+             z-index: 3;">
+            </div>
+        </div> 
+        </td>
+    </tr>
+    <tr style="height: 50px;">
+        <td>
+            <button id="弹幕开关" style="width: 200px;height: 40px;">弹幕关/开</button>
+         </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="滚动条">
+                <p style="position:relative;top: 10px;">  
+                    弹幕随机滤除 </p>
+                <input  type="range" id="range弹幕随机滤除" min="0" max="100" value="0" step="1"/>
+            </div>
+            <div class="滚动条">
+                <p style="position:relative;top: 10px;">  
+                    弹幕速度 </p>
+                <input  type="range" id="range弹幕速度" min="1" max="100" value="0" step="1"/>
+            </div>
+            <div class="滚动条">
+                <p style="position:relative;top: 10px;">  
+                    弹幕大小 </p>
+                <input  type="range" id="range弹幕大小" min="1" max="100" value="0" step="1"/>
+            </div>
+            <div class="滚动条">
+                <p style="position:relative;top: 10px;">  
+                    顶部弹幕存留时间 </p>
+                <input  type="range" id="range顶部弹幕存留时间" min="0" max="100" value="0" step="1"/>
+            </div>
+            <div class="滚动条">
+                <p style="position:relative;top: 10px; ">  
+                    弹幕板位置 </p>
+                <input  type="range" id="弹幕板位置" min="0" max="100" value="0" step="1"/>
+            </div>
+        </td>
+    </tr>
+
+    
+</table>
+
+ 
+
+<script type="text/javascript" src="m3u8弹幕引擎.js"></script>
+<script type="text/javascript" src="URL库.js"></script>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+ 
+<script>
+    //解析url传入参数
+        var url=window.location.href;
+        var 播放序号=url.split("?play_index=")[1];
+        var 需要播放的视频=视频_m3u8_URL库[播放序号].idName
+            
+        console.log("已进入m3u8播放器 待播放 "+需要播放的视频)
+    
+    //现在，根据url的数量动态生成按钮
+        var url长度=(视频_m3u8_URL库[播放序号].url_list).length
+        //动态添加按钮
+        var 父元素=document.getElementById("按钮插入处")
+        console.log("in m3u8播放器 url数量  "+url长度)
+        //注意，使用''就不会造成转义的问题了
+        var html = '<tr style="text-align: left;"><td>' ;
+        for(let i=0;i<url长度;i++){
+            
+            html += '<button class="切换按钮" onclick="切换视频src('+(i+1)+')">'+(i+1)+'</button>';
+            if ((i+1)%17==0){
+                html += '</td></tr><tr style="text-align: left;"><td>';}
+            
+        }
+    
+        父元素.innerHTML += html;
+</script>
+
+<script>
+    var m拖动弹幕板位置=document.getElementById("弹幕板位置")
+m拖动弹幕板位置.onchange=(function(e){
+    let value=this.value
+    弹幕板=document.getElementById("MY弹幕板")
+    弹幕板.style.top=value+'px'
+   
+})
+</script>
+
+
+<script>
+    //最好是把video空着，如果是像下面那样"初始时添加，点击第一个视频后，把初始时视频销毁"，会很奇怪，有时正常，有时不正常
+    //奇怪，把名称取为myjsVideo会出错，明明已经var初始化了，在切换视频src()中还是说变量没有定义。换个名字就可以了
+    // var myVideojs = videojs('myvideo',{bigPlayButton: true,textTrackDisplay: false,posterImage: false,errorDisplay: false} ); 
+    // myVideojs.dispose();
+    var test117=17;var DD;var count01=0;
+    function 切换视频src(index){
+        count01+=1
+        if (DD!=undefined){
+            上一个视频的后续处理(DD);
+            DD.M3U8添加属性1_only1_TU运行=0;//这是m3u8特有的第二个定时器
+            DD.videoPlayer.dispose();//这是m3u8特有的切换视频方法（通过清除html元素来解绑之前所有的视频监听器）
+        }else{
+        }
+        
+        //如果设置透明，那么其子级所有弹幕也透明，取消的方式就是transparent
+        MY弹幕板.style.backgroundColor='transparent'
+        console.log("in m3u8播放器 click "+test117)
+        //非常重要  非常重要  非常重要  非常重要
+        //video js的监听事件是累加的，无论什么方式，都只会越来越多。可以这样测试：仅执行M3U_8draw_DanMu(myVideojs,count);count+=1;
+        //所以每次click，都销毁掉html元素，然后重新插入html元素，再初始化
+        //video js要点1：无论任何地方，1个id，videojs("id",{})只能调用1次，否则无法播放。如果没有调用这个，那同样无法播放
+        //video js要点2：$("#id").html()这个函数是赋值(清除原来的所有子元素)，而非追加$("#id").append()，运行它后，审查元素会发现Video_BOX下面的弹幕板被删除了。另外$("#id").innerHTML是无效的
+        //video js要点3：'xxxxx src="'+Src地址 +'"xxxxx'这是正确的。'xxxxx src='+Src地址 +'xxxxx'这是错误的
+        //之前的测试记录 no use// let Src地址="https://cdn6.shzbgyl.com:65/20210707/zw9O5wUq/index.m3u8" 无BUG $("#Video_BOX").html('<video autoplay="autoplay" id="myvideo" autop class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" data-setup="{}" style="width: 60%;height: auto"><source id="source" src="https://cdn6.shzbgyl.com:65/20210707/zw9O5wUq/index.m3u8" type="application/x-mpegURL"></source></video>');//无BUG $("#Video_BOX").html('<video id="myvideo"  class="video-js vjs-16-9 vjs-default-skin vjs-big-play-centered" style="width: 700px;"controls preload="auto" data-setup="{}" autoplay="autoplay" ><source id="source" src="'+Src地址 +'" type="application/x-mpegURL"></source>');//  myVideojs = videojs('myvideo',{bigPlayButton: true,textTrackDisplay: false,posterImage: false,errorDisplay: false} ); 
+        let Src地址=视频_m3u8_URL库[播放序号].url_list[index-1]
+        
+        A=document.getElementById("Video_BOX")
+        A.innerHTML+='<video id="myvideo"  class="video-js vjs-16-9 vjs-default-skin vjs-big-play-centered" style="width: 700px;"controls preload="auto" data-setup="{}" autoplay="autoplay" ><source id="source" src="'+Src地址 +'" type="application/x-mpegURL"></source>';
+        // myVideojs = videojs('myvideo',{bigPlayButton: true,textTrackDisplay: false,posterImage: false,errorDisplay: false} ); 
+            //注意，无论是src传递参数，还是xml文件夹的命名，都依据视频URL_库的idName
+        DD=M3U8_draw_DanMu("myvideo","XML/"+视频_m3u8_URL库[播放序号].idName+'/'+index+".xml",count01);
+        // DD=模拟M3U8_draw_DanMu(count01);
+        
+        setTimeout(调整视频位置,2000)
+    }
+    
+    function 上一个视频的后续处理(DD){
+            window.clearInterval(DD.定时器ID)//TODO:这里有很小的可能性会发生多线程问题，如果此时正在执行定时器函数，那么下面的清空或许会出现错误
+            
+            DD.屏上弹幕清除()//无所谓，just视觉效果
+            //特殊弹幕的清除基于特殊航道（特殊航道就是个html元素，清除弹幕就是设置文字为空），如果不把特殊航道给删除，那么就会累积出N个特殊航道
+            //现在删除特殊航道
+            DD.特殊航道信息.forEach((航道,i)=>{
+                DD.MY弹幕板.removeChild(航道.html实体)
+            })
+           
+        }
+
+
+// </script>
+
+
+
+
+ <script>
+//   //弹幕绘制区域调试
+//     var MY弹幕板=document.getElementById("MY弹幕板");
+//     MY弹幕板.style.opacity=0.7
+//     MY弹幕板.style.backgroundColor='#FF0000'
+//     // 总结：宽度为55的弹幕以6秒通过，以此为基准
+//     $(document).ready(function(){
+                
+//                 var anode  = document.createElement('div');
+//                 anode.style.height='30px'
+//                 anode.innerText="一二三四五六七八九十77"
+//                 anode.style.whiteSpace = 'nowrap';//不换行。不加入这行，那么碰到表格边框会换行
+//                 anode.style.position = 'absolute';
+//                 anode.style.left = '700px'; //另一种不换行的方法：先放在很远的地方-5000px，append node后测量宽度，设置硬性宽度后再left=700px
+//                 anode.style.top = 100+'px';  
+//                 anode.style.fontSize =  '30px';
+//                 MY弹幕板.appendChild(anode)
+
+//                 var Bnode  = document.createElement('div');
+//                 Bnode.style.height='30px'
+//                 Bnode.innerText="一二三四"
+//                 Bnode.style.whiteSpace = 'nowrap';//不换行。不加入这行，那么碰到表格边框会换行
+//                 Bnode.style.position = 'absolute';
+//                 Bnode.style.left = '700px'; //另一种不换行的方法：先放在很远的地方-5000px，append node后测量宽度，设置硬性宽度后再left=700px
+//                 Bnode.style.top = 100+'px';  
+//                 Bnode.style.fontSize =  '30px';
+//                 MY弹幕板.appendChild(Bnode)
+
+            
+//                 console.log("文字测试".length)
+//                 console.log("node宽度"+anode.offsetWidth )
+//                  // 动画参数
+                
+//                 var node航程=600+(anode.offsetWidth)
+//                 var node用时s=2+6/(1+(anode.offsetWidth)/(55))
+//                 var node速度=(node航程)/node用时s
+                                        
+                
+
+//                 anode.style.transition = `transform ${node用时s}s linear`;
+//                 anode.style.transform = `translateX(-${node航程}px)`;
+//                 var A尾到站时刻ms=tnow()+node用时s*1000
+//                 var A出线时间=tnow()+node用时s*1000*(anode.offsetWidth/node航程)
+//                 //Bnode----------
+//                 node航程=600+(Bnode.offsetWidth)
+//                 node用时s=2+6/(1+(Bnode.offsetWidth)/(55))
+//                 node速度=(node航程)/node用时s
+//                 var B头到站需时ms=(600/node速度)*1000
+//                 if ((A尾到站时刻ms-B头到站需时ms-tnow())>0){
+//                     var 排队者应出发时刻=A尾到站时刻ms-B头到站需时ms
+//                 }else{
+//                     var 排队者应出发时刻=A出线时间
+//                 }
+                
+//                 console.log(排队者应出发时刻-tnow())
+//                 setInterval(function(){
+//                     console.log("INTERVAL" )
+//                     if (tnow()>排队者应出发时刻){
+//                         Bnode.style.transition = `transform ${node用时s}s linear`;
+//                         Bnode.style.transform = `translateX(-${node航程}px)`;
+                        
+//                     }
+//                 },100)
+//                 var Cnode  = document.createElement('div');
+//                 //relative中，文字高度只受fontSize影响，Cnode.style.height不起作用
+//                 Cnode.style.height='20px'
+//                 Cnode.innerText="sssss"
+//                 Cnode.style.whiteSpace = 'nowrap';//不换行。不加入这行，那么碰到表格边框会换行
+//                 Cnode.style.position = 'relative';
+//                 Cnode.style.left = '0px'; //另一种不换行的方法：先放在很远的地方-5000px，append node后测量宽度，设置硬性宽度后再left=700px
+//                 Cnode.style.top = +'px';  
+//                 Cnode.style.fontSize =  '20px';
+//                 MY弹幕板.appendChild(Cnode)
+//                 Cnode.style.color='#FFFFFF'
+//                 Cnode.innerText=""
+//                 Cnode  = document.createElement('div');
+//                 //relative中，文字高度只受fontSize影响，Cnode.style.height不起作用
+//                 // Cnode.classname="155" 审查元素时方便查看是哪个元素
+//                 // Cnode.setAttribute("name","AAA")
+//                 Cnode.style.height='20px'
+//                 Cnode.innerText="1"
+//                 Cnode.style.whiteSpace = 'nowrap';//不换行。不加入这行，那么碰到表格边框会换行
+//                 Cnode.style.position = '';
+//                 Cnode.style.left = '0px'; //另一种不换行的方法：先放在很远的地方-5000px，append node后测量宽度，设置硬性宽度后再left=700px
+//                 Cnode.style.top = +'px';  
+//                 Cnode.style.fontSize =  '20px';
+//                 Cnode.style.color='#FFFFFF'
+//                 Cnode.style.textShadow='#000 0px 0px 5px'
+//                 MY弹幕板.appendChild(Cnode)
+
+//                 Cnode.innerText="中间位置"
+
+//         })
+
+
+    function tnow(){
+            return new Date().getTime()
+        }
+
+</script>
+
+<script>
+
+    
+    
+    function 调整视频位置(){
+        class 存储{
+                constructor(){this.count=0;
+                    this.myvideo=document.getElementById("myvideo")
+                }
+                调整(){
+                    console.log("run"+this.count)
+                    this.count+=1
+                    let 高度=this.myvideo.offsetHeight
+                    console.log()
+                    this.myvideo.style.top=(450/2-高度/2)+"px"
+                    if (this.count<10){
+                        setTimeout(this.调整.bind(this),2000)//如果不绑定this，那么再次调用时，上下文就不是这个类了，this就是windows了
+                    }else{console.log("over")}
+                    }
+                }
+                a=new 存储()
+                a.调整()
+            
+        }
+    
+    
+    
+    </script>
+</body>
